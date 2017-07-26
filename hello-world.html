@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<title>Hello...</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body style="background-color:black;color:white;padding-top:5%">
+	<div id = "status">
+		Time for work
+	</div>
+	
+	<div id="countdown" style="margin-top:10%;font-size:3em">
+		00:00
+	</div>
+	<div id="controls">
+		<button class="pauseButton">Pause</button>
+		
+		
+		<div class="playButton" >Play</div>
+		
+		
+		<div class="resetButton">Reset</div>
+		
+		
+		
+		
+	</div>
+<script>
+	
+	//var countDown= new Date("Jan 5, 2018 15:37:25").getTime();
+	$(document).ready( function() {
+		
+		$('.pauseButton').mousedown(function() {
+			clearInterval(timerInterval);
+		});
+		$('.playButton').mousedown(function() {
+			timerInterval = setInterval(updateTime, 1000);
+		});		
+		$('.resetButton').mousedown(function() {
+			clearInterval(timerInterval);
+			timer = 25*60 + 1;
+			updateTime();
+		});		
+		
+	
+
+	});
+	var timer = 25*60;
+	var breaktime = false;
+	var timerInterval = setInterval(updateTime, 1000);
+		
+	
+	function updateTime () {
+		timer--;
+		if (timer <= 0) {
+			if (breaktime) {
+				timer = 25*60;
+				breaktime = false;
+				alert("Break time is over, back to work!");
+				$('#status').html("Time for work");
+			} else {
+				timer = 5*60;
+				breaktime = true;
+				alert("Time for a break!");
+				$('#status').html("Break time!");
+
+			}
+		}
+		var timerMinutes = Math.floor(timer / 60);
+		var timerSeconds = Math.floor(timer - timerMinutes*60);
+		$('#countdown').html(timerMinutes + ":" + ("0"+ timerSeconds).slice(-2));
+		
+	}
+
+</script>
+</body>
+</html>
